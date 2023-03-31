@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
+#include <omp.h>
 
 using namespace std;
 
@@ -54,6 +55,10 @@ void PGM::init() {
 }
 
 void PGM::edges(int weak_threshold, int strong_threshold) {
+    double start, end;
+
+    start = omp_get_wtime();
+
     int offset_xy = 1;  // for kernel = 3
 
     vector<int> temp(size_, 0);
@@ -92,6 +97,10 @@ void PGM::edges(int weak_threshold, int strong_threshold) {
 
     pixel = temp;
     write("./1.pgm");
+
+    end = omp_get_wtime();
+    cout << end - start << " seconds\n";
+    start = omp_get_wtime();
 
     // apply sobel kernels
     // get conv from temp
@@ -154,6 +163,10 @@ void PGM::edges(int weak_threshold, int strong_threshold) {
     }
 
     write("./2.pgm");
+    end = omp_get_wtime();
+    cout << end - start << " seconds\n";
+
+    start = omp_get_wtime();
 
     // local maxima: non maxima suppression
     // get suppressed pixels from temp
@@ -200,6 +213,10 @@ void PGM::edges(int weak_threshold, int strong_threshold) {
 
     write("./3.pgm");
 
+    end = omp_get_wtime();
+    cout << end - start << " seconds\n";
+    start = omp_get_wtime();
+
     // double threshold
     // compare values from temp
     // copy into pixels
@@ -217,6 +234,11 @@ void PGM::edges(int weak_threshold, int strong_threshold) {
     }
 
     write("./4.pgm");
+
+    end = omp_get_wtime();
+    cout << end - start << " seconds\n";
+
+    start = omp_get_wtime();
 
     // edges with hysteresis
     // prolly can't be parallelized, copy pixel vals into pixel
@@ -243,6 +265,10 @@ void PGM::edges(int weak_threshold, int strong_threshold) {
     }
 
     write("./5.pgm");
+
+    end = omp_get_wtime();
+    cout << end - start << " seconds\n";
+
     cout << "All files written." << endl;
 }
 
@@ -330,12 +356,13 @@ void PGM::open(std::string filename) {
 }
 
 int main() {
+    double start, end;
+    start = omp_get_wtime();
     PGM opened;
-    cout << 1;
     opened.open("./01.pgm");
-    cout << 1;
     opened.edges();
-    cout << 1;
     cout << "succesfully exited";
+    end = omp_get_wtime();
+    cout << "Total time " << end - start << " seconds.\n";
     return 0;
 }
