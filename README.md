@@ -20,7 +20,7 @@ Build with `make pgmb_to_pgma`.
 - Usage: `pgmb_to_pgma <input-binary-PGM>.pgm 01.pgm`
 (where `01.pgm` is the required ASCII file for the program to work on. Save it as just that!)
 
-4. Finally, run `make pgm.final` and run as `./pgm.final`
+4. Finally, run `make main.final` and run as `./main.final`
 
 
 
