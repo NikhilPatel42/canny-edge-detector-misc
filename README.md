@@ -10,7 +10,7 @@
 
 To use, ensure the following
 
-#####1. Have an ASCII encoded PGM (P2) image file.
+##### 1. Have an ASCII encoded PGM (P2) image file.
 
 1. Use UNIX's `convert *.png|*.jpg binary.pgm` to convert from any image file (almost) to a binary PGM file.
 
