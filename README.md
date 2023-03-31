@@ -7,7 +7,23 @@
 
 #### 2. The repository consists parallelized implementations of the Canny Edge Detection algorithm using 
 - C++/OPENMP
-- CUDA Framework
+
+To use, ensure the following
+
+#####1. Have an ASCII encoded PGM (P2) image file.
+
+1. Use UNIX's `convert *.png|*.jpg binary.pgm` to convert from any image file (almost) to a binary PGM file.
+
+2. Finally to convert from binary encoded PGM to ASCII encoded PGM (the one we want),
+- Use the repo's `pgmb_to_pgma.cpp`. 
+Build with `make pgmb_to_pgma`.
+- Usage: `pgmb_to_pgma <input-binary-PGM>.pgm 01.pgm`
+(where `01.pgm` is the required ASCII file for the program to work on. Save it as just that!)
+
+4. Finally, run `make pgm.final` and run as `./pgm.final`
+
+
+
 
 #### 3. Some modifications in the multi-stage algorithm.
 Proposal: analyze if there are any improvements in edge detection with the following changes:  
