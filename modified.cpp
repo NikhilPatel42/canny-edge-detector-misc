@@ -249,7 +249,7 @@ void PGM::hysteresis() {
         for (int y = 1; y < height - 1; y++) {
             int pos = x + (y * width);
 
-            if (pixel.at(pos) == 100) {
+            if (pixel.at(pos) == 127) {
                 if (pixel.at(pos - 1) == 255 || pixel.at(pos + 1) == 255 ||
                     pixel.at(pos - 1 - width) == 255 ||
                     pixel.at(pos + 1 - width) == 255 ||

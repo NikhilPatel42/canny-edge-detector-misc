@@ -215,7 +215,7 @@ void PGM::doublethresh(int t1, int t2) {
             if (temp.at(pos) > t2) {
                 pixel.at(pos) = 255;
             } else if (temp.at(pos) > t1) {
-                pixel.at(pos) = 100;
+                pixel.at(pos) = 127;
             } else {
                 pixel.at(pos) = 0;
             }
