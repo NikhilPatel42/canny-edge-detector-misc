@@ -25,9 +25,9 @@ class PGM {
     void open(std::string);
     void write(std::string);
     void init();
-    void canny(int t1 = 50, int t2 = 200);
+    void canny();
     void nms();
-    void doublethresh(int t1, int t2);
+    void doublethresh();
     void hysteresis();
     void prewitt();
     void gaussian3();
@@ -47,14 +47,14 @@ void PGM::init() {
     temp.resize(size_);
 }
 
-void PGM::canny(int t1, int t2) {
+void PGM::canny() {
     gaussian3();
     write("./1.pgm");
     prewitt();
     write("./2.pgm");
     nms();
     write("./3.pgm");
-    doublethresh(50,200);
+    doublethresh();
     write("./4.pgm");
     hysteresis();
     write("./modified.pgm");
@@ -205,25 +205,41 @@ void PGM::nms() {
 
 }
 
-void PGM::doublethresh(int t1, int t2) {
+void PGM::doublethresh() {
     /* double thresholding
      * compare values from temp
      * copy into pixels
      */
     temp = pixel;
+
+    double sum = 0;
+    double m = 0;
+    for (auto i : pixel)
+        if(i > 100){
+            sum+=i;
+            m++;
+        }
+    sum /= m;
+
+    int t1 = static_cast<int>(sum*0.33);
+    int t2 = static_cast<int>(sum*0.66);
+    cout << "\nthreshold set: \n" << "t1: " <<t1 << ",t2: " << t2 << endl;
+
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
             int pos = x + (y * width);
             if (temp.at(pos) > t2) {
                 pixel.at(pos) = 255;
             } else if (temp.at(pos) > t1) {
-                pixel.at(pos) = 100;
+                pixel.at(pos) = 127;
             } else {
                 pixel.at(pos) = 0;
             }
         }
     }
 }
+
+
 
 void PGM::hysteresis() {
     /* track edges with hysteresis
