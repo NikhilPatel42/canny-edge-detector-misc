@@ -124,7 +124,7 @@ void PGM::sobel() {
             if (convolve_X == 0.0 || convolve_Y == 0.0) {
                 pixel.at(pos) = 0;
             } else {
-                double mag = ((std::sqrt((convolve_X * convolve_X) +
+                double mag = ((sqrt((convolve_X * convolve_X) +
                                          (convolve_Y * convolve_Y))));
 
                 if (mag > 255)
@@ -240,7 +240,7 @@ void PGM::hysteresis() {
                     pixel.at(pos + width + 1) == 255) {
                     pixel.at(pos) = 255;
                 } else {
-                    pixel[pos] = 0;
+                    pixel.at(pos) = 0;
                 }
             }
         }
