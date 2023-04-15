@@ -354,7 +354,7 @@ int main() {
     fend = omp_get_wtime();
     cout << fend - fstart << endl;
 
-    write("./original.pgm");
+    opened.write("./original.pgm");
     cout << "All files written." << endl;
     cout << "succesfully exited";
     return 0;
